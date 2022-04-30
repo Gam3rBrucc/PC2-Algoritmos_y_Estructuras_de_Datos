@@ -49,7 +49,7 @@ public:
                 lista_taxistas.recorrer_inicio([](CTaxista o){cout << o.mostrar_info();});
                 break;
             case 2:
-
+               // TODO falta desarrollar el case 2 en la clase CAdmin (eliminar usuario) 
                 break;
             case 3:
                 break;
