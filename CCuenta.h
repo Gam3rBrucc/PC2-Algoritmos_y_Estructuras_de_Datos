@@ -5,6 +5,8 @@
 #include "CLista.h"
 #include "Archivo.h"
 
+// TODO falta desarrollar la classe CCuenta
+
 using std::string;
 using std::cout;
 using std::cin;
