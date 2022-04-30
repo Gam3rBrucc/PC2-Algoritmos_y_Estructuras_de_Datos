@@ -16,7 +16,7 @@ public:
     CAdmin() {
         cout << "\n=================== Modo Admin ===================\n";
         cout << "Bienvenido al modo admin!!!\n";
-        cout << "\t[1] Ver informacion de todos los usuarios registrados\n";
+        cout << "\n\t[1] Ver informacion de todos los usuarios registrados\n";
         cout << "\t[2] Eliminar usuario\n";
         cout << "\t[R] Regresar\n";
         cout << "\nElija una opcion: ";
