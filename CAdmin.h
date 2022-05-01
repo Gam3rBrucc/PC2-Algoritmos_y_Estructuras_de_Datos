@@ -16,8 +16,8 @@ public:
     CAdmin() {
         cout << "\n=================== Modo Admin ===================\n";
         cout << "Bienvenido al modo admin!!!\n";
-        cout << "\n\t[1] Ver informacion de todos los usuarios registrados\n";
-        cout << "\t[2] Eliminar usuario\n";
+        cout << "\n\t[1] Ver informacion de todos las cuentas registrados\n";
+        cout << "\t[2] Eliminar cuenta\n";
         cout << "\t[R] Regresar\n";
         cout << "\nElija una opcion: ";
 
@@ -29,30 +29,20 @@ public:
             cin >> input;
         }
 
-        short opcion;
-        if(input == "1") opcion = 1;
-        else if(input == "2") opcion = 2;
-        else if(input == "r" || input == "R") opcion = 3;
-        else cout << "\n\n\t~ERROR~\n\n";
-
         CLista<CUsuario> lista_usuarios;
         CLista<CTaxista> lista_taxistas;
 
         leerObjetosGuardados<CUsuario>("usuarios.bin", &lista_usuarios);
         leerObjetosGuardados<CTaxista>("taxistas.bin", &lista_taxistas);
 
-        switch(opcion) {
-            case 1:
-                cout << "====================== Lista de usuarios ======================\n\n";
-                lista_usuarios.recorrer_inicio([](CUsuario o){cout << o.mostrar_info();});
-                cout << "====================== Lista de taxistas ======================\n\n";
-                lista_taxistas.recorrer_inicio([](CTaxista o){cout << o.mostrar_info();});
-                break;
-            case 2:
-               // TODO falta desarrollar el case 2 en la clase CAdmin (eliminar usuario) 
-                break;
-            case 3:
-                break;
-        }
+        if(input == "1") { // Recorre las listas de usuarios y taxistas mostrando toda la informacion de estas
+            cout << "====================== Lista de usuarios ======================\n\n";
+            lista_usuarios.recorrer_inicio([](CUsuario o){cout << o.mostrar_info();});
+            cout << "====================== Lista de taxistas ======================\n\n";
+            lista_taxistas.recorrer_inicio([](CTaxista o){cout << o.mostrar_info();});
+        } else if(input == "2") { // Eliminar cuenta
+            // TODO falta desarrollar el case 2 en la clase CAdmin (eliminar usuario)
+        } else if(input == "r" || input == "R") { // Regresar pagina
+        } else cout << "\n\n\t~ERROR~\n\n";
     }
 };
