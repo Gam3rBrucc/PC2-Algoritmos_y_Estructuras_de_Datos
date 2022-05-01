@@ -23,4 +23,7 @@ public:
     string get_contrasenia() {
         return contrasenia;
     }
+    string get_nombre() {
+        return nombre;
+    }
 };
