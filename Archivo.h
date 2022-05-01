@@ -10,6 +10,13 @@ using std::cin;
 using std::endl;
 using std::ios;
 
+void limpiarArchivo(string archivo) {
+    std::ofstream limpiar;
+    limpiar.open(archivo, ios::binary);
+    if(limpiar.is_open()) {}
+    else cout << "~~ERROR, No se pudo abrir el archivo \"" << archivo << "\"\n";
+}
+
 template <typename Generico>
 void guardarObjeto(string archivo, Generico obj) {
     std::ofstream guardar;
@@ -17,7 +24,7 @@ void guardarObjeto(string archivo, Generico obj) {
     if(guardar.is_open()) {
         guardar.write((char*)&obj, sizeof(Generico));
         guardar.close();
-    } else cout << "~~ERROR, No se pudo abrir el archivo\n";
+    } else cout << "~~ERROR, No se pudo abrir el archivo \"" << archivo << "\"\n";
 }
 
 template <typename Generico>
@@ -31,6 +38,6 @@ void leerObjetosGuardados(string archivo, CLista<Generico>* lista) {
             lista->push_back(n);
         }
         leer.close();
-        lista->pop_back();
-    } else cout << "~~ERROR, No se pudo abrir el archivo\n";
+        if(lista->get_t() > 1) lista->pop_back();
+    } else cout << "~~ERROR, No se pudo abrir el archivo \"" << archivo << "\"\n";
 }
