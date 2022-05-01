@@ -48,6 +48,7 @@ public:
         delete fin;
         fin = n;
         fin->sig = nullptr;
+        --t;
     }
     void pop_back() {
         Nodo<Generico>* n = inicio->sig;
@@ -55,6 +56,7 @@ public:
         delete inicio;
         inicio = n;
         inicio->ant = nullptr;
+        --t;
     }
     void recorrer_inicio(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = inicio;
@@ -71,5 +73,8 @@ public:
             n = n->ant;
         }
         r_nodo(n->elemento);
+    }
+    size_t get_t() {
+        return t;
     }
 };
