@@ -33,12 +33,6 @@ public:
             cin >> input;
         }
 
-        short opcion;
-        if(input == "1") opcion = 1;
-        else if(input == "2") opcion = 2;
-        else if(input == "r" || input == "R") opcion = 3;
-        else cout << "\n\n\t~ERROR~\n\n";
-
         string nombre, apellido, contrasenia;
         string modelo_auto = "-";
         string placa_auto = "-";
@@ -48,72 +42,66 @@ public:
         CTaxista* cuenta_taxista;
         CAutomovil* automovil;
 
-        switch(opcion) {
-            case 1: // Creacion de cuenta de pasajero
-                cout << "================= Ingreso de datos =================\n\n";
-                cout << "\tNombre: ";
-                cin >> nombre;
-                cout << "\tApellido: ";
-                cin >> apellido;
-                cout << "\tEdad: ";
-                cin >> edad;
-                cout << "\tNumero de celular: ";
-                cin >> numero_de_celular;
-                cout << "\tConstrasenia: ";
-                cin >> contrasenia;
+        if(input == "1") { // Creacion de cuenta de pasajero
+            cout << "================= Ingreso de datos =================\n\n";
+            cout << "\tNombre: ";
+            cin >> nombre;
+            cout << "\tApellido: ";
+            cin >> apellido;
+            cout << "\tEdad: ";
+            cin >> edad;
+            cout << "\tNumero de celular: ";
+            cin >> numero_de_celular;
+            cout << "\tConstrasenia: ";
+            cin >> contrasenia;
 
-                cout << "\nCreando cuenta...\n";
-                cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
-                guardarObjeto<CUsuario>("usuarios.bin", *cuenta_usuario); // Guarda objecto de usuario en archivo
-                std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
-                std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+            cout << "\nCreando cuenta...\n";
+            cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
+            guardarObjeto<CUsuario>("usuarios.bin", *cuenta_usuario); // Guarda objecto de usuario en archivo
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+            cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+        } else if(input == "2") { // Creacion de cuenta de taxista
+            cout << "================= Ingreso de datos =================\n\n";
+            cout << "\tNombre: ";
+            cin >> nombre;
+            cout << "\tApellido: ";
+            cin >> apellido;
+            cout << "\tEdad: ";
+            cin >> edad;
+            cout << "\tNumero de celular: ";
+            cin >> numero_de_celular;
+            cout << "\tConstrasenia: ";
+            cin >> contrasenia;
 
-                break;
-            case 2: // Creacion de cuenta de taxista
-                cout << "================= Ingreso de datos =================\n\n";
-                cout << "\tNombre: ";
-                cin >> nombre;
-                cout << "\tApellido: ";
-                cin >> apellido;
-                cout << "\tEdad: ";
-                cin >> edad;
-                cout << "\tNumero de celular: ";
-                cin >> numero_de_celular;
-                cout << "\tConstrasenia: ";
-                cin >> contrasenia;
+            cout << "\nDesea tambien registrar su automovil que usara para llevar a pasajeros?\n";
+            cout << "Puede hacerlo luego si desea, pero no podra recojer pasajeros hasta que tenga un automovil registrado\n";
+            cout << "\t(si / no): ";
 
-                cout << "\nDesea tambien registrar su automovil que usara para llevar a pasajeros?\n";
-                cout << "Puede hacerlo luego si desea, pero no podra recojer pasajeros hasta que tenga un automovil registrado\n";
-                cout << "\t(si / no): ";
-
-                input = "";
+            input = "";
+            cin >> input;
+            while(input != "si" && input != "no") {
+                cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
                 cin >> input;
-                while(input != "si" && input != "no") {
-                    cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-                    cin >> input;
-                }
+            }
 
-                if(input == "si") {
-                    cout << "\tModelo de automovil: ";
-                    cin >> modelo_auto;
-                    cout << "\tPlaca de automovil: ";
-                    cin >> placa_auto;
-                    automovil = new CAutomovil(modelo_auto, placa_auto);
-                } else if(input == "no") {
-                    automovil = new CAutomovil("N/A", "N/A");
-                } else cout << "\n\n\t~ERROR~\n\n";
+            if(input == "si") {
+                cout << "\tModelo de automovil: ";
+                cin >> modelo_auto;
+                cout << "\tPlaca de automovil: ";
+                cin >> placa_auto;
+                automovil = new CAutomovil(modelo_auto, placa_auto);
+            } else if(input == "no") {
+                automovil = new CAutomovil("N/A", "N/A");
+            } else cout << "\n\n\t~ERROR~\n\n";
 
-                cout << "\nCreando cuenta...\n";
-                cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
-                guardarObjeto<CTaxista>("taxistas.bin", *cuenta_taxista); // Guarda objeto de taxista en archivo
-                std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
-                std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-
-                break;
-            case 3: // Regresar a pagina anterior
-                break;
-        }
+            cout << "\nCreando cuenta...\n";
+            cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
+            guardarObjeto<CTaxista>("taxistas.bin", *cuenta_taxista); // Guarda objeto de taxista en archivo
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+            cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+        } else if(input == "r" || input == "R") { // Regresar a pagina anterior
+        } else cout << "\n\n\t~ERROR~\n\n";
     }
 };
