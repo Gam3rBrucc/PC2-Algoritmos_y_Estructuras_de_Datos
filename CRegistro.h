@@ -7,9 +7,6 @@
 #include "CAutomovil.h"
 #include "Archivo.h"
 
-//Archivo donde se guardan usuarios = "usuarios.bin"
-//Archivo donde se guardan taxistas = "taxistas.bin"
-
 using std::string;
 using std::cout;
 using std::cin;
