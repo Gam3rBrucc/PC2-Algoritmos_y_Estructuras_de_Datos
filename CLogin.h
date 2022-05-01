@@ -49,8 +49,14 @@ public:
             }
         });
 
-        if(encontro_usuario) CCuenta cuenta_U(cuenta_usuario); // Crea un objeto de CCuenta para poder pasarle el objecto de usuario
-        else if(encontro_taxista) CCuenta cuenta_T(cuenta_taxista); // Crea un objeto de CCuenta para poder pasarle el objecto de taxista
+        if(encontro_usuario) {
+            cout << "\nBienvenido " << cuenta_usuario.get_nombre() << "!!!\n";
+            CCuenta cuenta_U(cuenta_usuario); // Crea un objeto de CCuenta para poder pasarle el objecto de usuario
+        }
+        else if(encontro_taxista) {
+            cout << "\nBienvenido " << cuenta_taxista.get_nombre() << "!!!\n";
+            CCuenta cuenta_T(cuenta_taxista); // Crea un objeto de CCuenta para poder pasarle el objecto de taxista
+        }
         else cout << "\n~~No se encontro ningun cuenta con ese numero de celular o contrasenia\n";
     }
 };
