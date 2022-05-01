@@ -11,6 +11,9 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#define ARCH_U "usuarios.bin" // ARCH_U se refiere a ARCHivo Usuarios
+#define ARCH_T "taxistas.bin" // ARCH_T se refiere a ARCHivo Taxistas
+
 class CLogin {
     int numero_de_celular;
     string contrasenia;
@@ -32,8 +35,8 @@ public:
         cout << "\tContrasenia: ";
         cin >> contrasenia;
 
-        leerObjetosGuardados<CUsuario>("usuarios.bin", &lista_usuarios);
-        leerObjetosGuardados<CTaxista>("taxistas.bin", &lista_taxistas);
+        leerObjetosGuardados<CUsuario>(ARCH_U, &lista_usuarios);
+        leerObjetosGuardados<CTaxista>(ARCH_T, &lista_taxistas);
 
 
         lista_usuarios.recorrer_inicio([=](CUsuario o){ // Recorre toda la lista de usuarios y revisa si el numero de celular y contrasenia coinciden
