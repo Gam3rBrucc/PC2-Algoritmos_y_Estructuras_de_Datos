@@ -15,6 +15,9 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#define ARCH_U "usuarios.bin" // ARCH_U se refiere a ARCHivo Usuarios
+#define ARCH_T "taxistas.bin" // ARCH_T se refiere a ARCHivo Taxistas
+
 class CRegistro {
 public:
     CRegistro() {
@@ -56,11 +59,28 @@ public:
             cin >> contrasenia;
 
             cout << "\nCreando cuenta...\n";
-            cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
-            guardarObjeto<CUsuario>("usuarios.bin", *cuenta_usuario); // Guarda objecto de usuario en archivo
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-            cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+
+            bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
+            CLista<CTaxista> lista_taxistas;
+            CLista<CUsuario> lista_usuarios;
+            leerObjetosGuardados(ARCH_T, &lista_taxistas);
+            lista_taxistas.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CTaxista o){
+                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
+            });
+            leerObjetosGuardados(ARCH_U, &lista_usuarios);
+            lista_usuarios.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CUsuario o){
+                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
+            });
+
+            if(num_cel_disponible) {
+                cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
+                guardarObjeto<CUsuario>(ARCH_U, *cuenta_usuario); // Guarda objecto de usuario en archivo
+                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+            } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n";
+
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+
         } else if(input == "2") { // Creacion de cuenta de taxista
             cout << "================= Ingreso de datos =================\n\n";
             cout << "\tNombre: ";
@@ -96,10 +116,26 @@ public:
             } else cout << "\n\n\t~ERROR~\n\n";
 
             cout << "\nCreando cuenta...\n";
-            cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
-            guardarObjeto<CTaxista>("taxistas.bin", *cuenta_taxista); // Guarda objeto de taxista en archivo
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-            cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+
+            bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
+            CLista<CTaxista> lista_taxistas;
+            CLista<CUsuario> lista_usuarios;
+            leerObjetosGuardados(ARCH_T, &lista_taxistas);
+            lista_taxistas.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CTaxista o){
+                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
+            });
+            leerObjetosGuardados(ARCH_U, &lista_usuarios);
+            lista_usuarios.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CUsuario o){
+                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
+            });
+
+            if(num_cel_disponible) {
+                cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
+                guardarObjeto<CTaxista>(ARCH_T, *cuenta_taxista); // Guarda objeto de taxista en archivo
+                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
+            } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n";
+
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
         } else if(input == "r" || input == "R") { // Regresar a pagina anterior
         } else cout << "\n\n\t~ERROR~\n\n";
