@@ -17,4 +17,10 @@ public:
     string info() {
         return modelo_automovil + " [" + placa_automovil + "]";
     }
+    string get_modelo() {
+        return modelo_automovil;
+    }
+    string get_placa() {
+        return placa_automovil;
+    }
 };
