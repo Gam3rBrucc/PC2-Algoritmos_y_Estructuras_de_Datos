@@ -58,19 +58,7 @@ public:
             cout << "\nCreando cuenta...\n";
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-            bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
-            CLista<CTaxista> lista_taxistas;
-            CLista<CUsuario> lista_usuarios;
-            leerObjetosGuardados(ARCH_T, &lista_taxistas);
-            lista_taxistas.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CTaxista o){
-                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
-            });
-            leerObjetosGuardados(ARCH_U, &lista_usuarios);
-            lista_usuarios.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CUsuario o){
-                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
-            });
-
-            if(num_cel_disponible) {
+            if(verificarCelular(numero_de_celular)) {
                 cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
                 guardarObjeto<CUsuario>(ARCH_U, *cuenta_usuario); // Guarda objecto de usuario en archivo
                 cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
@@ -115,19 +103,7 @@ public:
             cout << "\nCreando cuenta...\n";
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-            bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
-            CLista<CTaxista> lista_taxistas;
-            CLista<CUsuario> lista_usuarios;
-            leerObjetosGuardados(ARCH_T, &lista_taxistas);
-            lista_taxistas.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CTaxista o){
-                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
-            });
-            leerObjetosGuardados(ARCH_U, &lista_usuarios);
-            lista_usuarios.recorrer_inicio([&numero_de_celular, &num_cel_disponible](CUsuario o){
-                if(o.get_numero_celular() == numero_de_celular) num_cel_disponible = false;
-            });
-
-            if(num_cel_disponible) {
+            if(verificarCelular(numero_de_celular)) {
                 cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
                 guardarObjeto<CTaxista>(ARCH_T, *cuenta_taxista); // Guarda objeto de taxista en archivo
                 cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
@@ -136,5 +112,20 @@ public:
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
         } else if(input == "r" || input == "R") { // Regresar a pagina anterior
         } else cout << "\n\n\t~ERROR~\n\n";
+    }
+
+    bool verificarCelular(int celular) {
+        bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
+        CLista<CTaxista> lista_taxistas;
+        CLista<CUsuario> lista_usuarios;
+        leerObjetosGuardados(ARCH_T, &lista_taxistas);
+        lista_taxistas.recorrer_inicio([&celular, &num_cel_disponible](CTaxista o){
+            if(o.get_numero_celular() == celular) num_cel_disponible = false;
+        });
+        leerObjetosGuardados(ARCH_U, &lista_usuarios);
+        lista_usuarios.recorrer_inicio([&celular, &num_cel_disponible](CUsuario o){
+            if(o.get_numero_celular() == celular) num_cel_disponible = false;
+        });
+        return num_cel_disponible;
     }
 };
