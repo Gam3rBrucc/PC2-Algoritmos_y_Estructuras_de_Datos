@@ -2,7 +2,8 @@
 #include <iostream>
 
 template <typename Generico>
-struct Nodo {
+class Nodo {
+public:
     Generico elemento;
     Nodo<Generico>* sig;
     Nodo<Generico>* ant;
