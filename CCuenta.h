@@ -22,7 +22,7 @@ class CCuenta {
 public:
     CCuenta(CUsuario obj) { // Corre si el obj pasado es de usuario
         usuario = obj;
-        cout << "====================== Cuenta ======================\n\n";
+        cout << "============== Cuenta de " << obj.get_nombre() << " ==============\n\n";
         cout << "\t[1] Ver datos de cuenta\n";
         cout << "\t[2] Ver historial de viajes\n";
         cout << "\t[3] Cambiar datos\n";
@@ -66,7 +66,7 @@ public:
     }
     CCuenta(CTaxista obj) { // Corre si el obj pasado es de taxista
         taxista = obj;
-        cout << "====================== Cuenta ======================\n\n";
+        cout << "============== Cuenta de " << obj.get_nombre() << " ==============\n\n";
         cout << "\t[1] Ver datos de cuenta\n";
         cout << "\t[2] Ver historial de pasajeros\n";
         cout << "\t[3] Cambiar datos\n";
@@ -135,26 +135,25 @@ public:
             cout << "\n~~Se logro eliminar la cuenta!\n";
         } else cout << "\n\n\t~ERROR~\n\n";
     }
-    void actualizarCuenta(char tipo_de_cuenta, int celular) {
-        if(tipo_de_cuenta == 'U') {
-            CLista<CUsuario> lista_usuarios;
-            leerObjetosGuardados(ARCH_U, &lista_usuarios);
-            limpiarArchivo(ARCH_U);
-            lista_usuarios.recorrer_inicio([&celular](CUsuario o) {
-                if(o.get_numero_celular() == celular) {
-                    guardarObjeto(ARCH_U, o);
-                }
-            });
-        } else if(tipo_de_cuenta == 'T') {
-            CLista<CTaxista> lista_taxistas;
-            leerObjetosGuardados(ARCH_T, &lista_taxistas);
-            limpiarArchivo(ARCH_T);
-            lista_taxistas.recorrer_inicio([&celular](CTaxista o) {
-                if(o.get_numero_celular() == celular) {
-                    guardarObjeto(ARCH_T, o);
-                }
-            });
-        } else cout << "\n\n\t~ERROR~\n\n";
+    void actualizarCuentaUsuario(int celular, CUsuario obj) {
+        CLista<CUsuario> lista_usuarios;
+        leerObjetosGuardados(ARCH_U, &lista_usuarios);
+        limpiarArchivo(ARCH_U);
+        lista_usuarios.recorrer_inicio([&celular, &obj](CUsuario o) {
+            if(o.get_numero_celular() == celular) {
+                guardarObjeto<CUsuario>(ARCH_U, obj);
+            } else guardarObjeto<CUsuario>(ARCH_U, o);
+        });
+    }
+    void actualizarCuentaTaxista(int celular, CTaxista obj) {
+        CLista<CTaxista> lista_taxistas;
+        leerObjetosGuardados(ARCH_T, &lista_taxistas);
+        limpiarArchivo(ARCH_T);
+        lista_taxistas.recorrer_inicio([&celular, &obj](CTaxista o) {
+            if(o.get_numero_celular() == celular) {
+                guardarObjeto<CTaxista>(ARCH_T, obj);
+            } else guardarObjeto<CTaxista>(ARCH_T, o);
+        });
     }
     bool verificarCelular(int celular) {
         bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
@@ -193,12 +192,12 @@ public:
                 if(tipo_de_cuenta == 'U') {
                     int antiguo_celular = usuario.get_numero_celular();
                     usuario.set_numero_celular(nuevo_numero_de_celular);
-                    actualizarCuenta('U', antiguo_celular);
+                    actualizarCuentaUsuario(antiguo_celular, usuario);
                 }
                 if(tipo_de_cuenta == 'T') {
                     int antiguo_celular = taxista.get_numero_celular();
                     taxista.set_numero_celular(nuevo_numero_de_celular);
-                    actualizarCuenta('T', antiguo_celular);
+                    actualizarCuentaTaxista(antiguo_celular, taxista);
                 }
 
                 cout << "\nSu numero de celular ha sido actualizada exitosamente!!!\n";
@@ -211,11 +210,11 @@ public:
 
             if(tipo_de_cuenta == 'U') {
                 usuario.set_contrasenia(nueva_contrasenia);
-                actualizarCuenta('U', usuario.get_numero_celular());
+                actualizarCuentaUsuario(usuario.get_numero_celular(), usuario);
             }
             if(tipo_de_cuenta == 'T') {
                 taxista.set_contrasenia(nueva_contrasenia);
-                actualizarCuenta('T', taxista.get_numero_celular());
+                actualizarCuentaTaxista(taxista.get_numero_celular(), taxista);
             }
 
             cout << "\nSu contrasenia ha sido actualizada exitosamente!!!\n";
