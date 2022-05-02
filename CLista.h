@@ -20,9 +20,7 @@ public:
 
     void push_front(Generico e) {
         Nodo<Generico>* n = new Nodo<Generico>(e);
-        if(t == 0) {
-            inicio = fin = n;
-        }
+        if(t == 0) inicio = fin = n;
         else {
             n->ant = fin;
             fin->sig = n;
@@ -32,9 +30,7 @@ public:
     }
     void push_back(Generico e) {
         Nodo<Generico>* n = new Nodo<Generico>(e);
-        if(t == 0) {
-            inicio = fin = n;
-        }
+        if(t == 0) inicio = fin = n;
         else {
             n->sig = inicio;
             inicio->ant = n;
