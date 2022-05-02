@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "CUsuario.h"
 #include "CTaxista.h"
 #include "CLista.h"
@@ -48,7 +50,7 @@ public:
             cambiarDatos('U');
             CCuenta cuenta_U(usuario);
         } else if(input == "4") { // Pedir taxi
-
+            pedirTaxi();
         } else if(input == "5") { // Eliminar cuenta
             cout << "\nEstas seguro que quieres eliminar tu cuenta?\n(SI/NO): ";
             string si_no;
@@ -222,5 +224,11 @@ public:
             if(tipo_de_cuenta == 'U') CCuenta cuenta_U(usuario);
             if(tipo_de_cuenta == 'T') CCuenta cuenta_T(taxista);
         } else cout << "\n\n\t~ERROR~\n\n";
+    }
+    void pedirTaxi() {
+        cout << "Por favor ingrese a donde quisiera ir: ";
+        string direccion;
+        cin >> direccion;
+
     }
 };
