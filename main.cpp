@@ -4,9 +4,12 @@
 #include "Archivo.h"
 #include "CTaxista.h"
 #include "CAutomovil.h"
+#include "CPila.h"
 
 using std::cout;
 using std::endl;
+
+// TODO hacer un metodo de ordenamiento
 
 int main() {
     cout << "===============================\n";
@@ -38,19 +41,20 @@ int main() {
 //        return name + ", " + std::to_string(age);
 //    }
 //};
-
+//
 //int main() {
-////    CTaxista* t1 = new CTaxista("Fulano", "Mengano", 20, 333666999, "abc123", CAutomovil("Tesla", "BRUV-123"));
-////    CTaxista* t2 = new CTaxista("Fulano", "Mengano", 20, 333666999, "abc123", CAutomovil("N/A", "N/A"));
-////
-////    guardarObjeto("test.bin", *t1);
-////    guardarObjeto("test.bin", *t2);
 //
-//    CLista<CTaxista> lista;
+//    CPila<Person> pila(3);
 //
-//    leerObjetosGuardados("test.bin", &lista);
+//    pila.push(Person("Bruci", 19));
+//    pila.push(Person("Dibi", 17));
+//    pila.push(Person("grrrr", 99));
 //
-//    lista.recorrer_inicio([](CTaxista o){cout << o.mostrar_info() << endl;});
+//    pila.peek([](Person o){cout << o.info() << endl;});
+//
+//    pila.push(Person("Tilin", 12));
+//
+//    pila.peek([](Person o){cout << o.info() << endl;});
 //
 //    return 0;
 //};
