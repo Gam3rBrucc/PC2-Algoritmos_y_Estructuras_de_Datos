@@ -45,7 +45,7 @@ public:
             cout << usuario.mostrar_info();
             CCuenta cuenta_U(usuario);
         } else if(input == "2") { // Ver historial de viajes
-
+            ver_historial_viajes();
         } else if(input == "3") { // Cambiar datos
             cambiarDatos('U');
             CCuenta cuenta_U(usuario);
@@ -229,6 +229,14 @@ public:
         cout << "Por favor ingrese a donde quisiera ir: ";
         string direccion;
         cin >> direccion;
+        // TODO finish this!
+    }
+    void ver_historial_viajes(char tipo_de_cuenta) {
+        cout << "================== Historial Viajes ==================\n";
+        if(tipo_de_cuenta == 'U') {
 
+        } else if(tipo_de_cuenta == 'T') {
+
+        }
     }
 };
