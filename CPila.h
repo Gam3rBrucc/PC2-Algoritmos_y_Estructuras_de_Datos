@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <functional>
-#include "SNodo.h"
+#include "CNodo.h"
 
 using std::string;
 using std::cout;
@@ -58,6 +58,22 @@ public:
             delete n;
             --t;
         }
+    }
+    void recorrer_ultimo(std::function<void(Generico)> r_nodo) {
+        Nodo<Generico>* n = ultimo;
+        while(n->ant != nullptr) {
+            r_nodo(n->elemento);
+            n = n->ant;
+        }
+        r_nodo(n->elemento);
+    }
+    void recorrer_primero(std::function<void(Generico)> r_nodo) {
+        Nodo<Generico>* n = primero;
+        while(n->sig != nullptr) {
+            r_nodo(n->elemento);
+            n = n->sig;
+        }
+        r_nodo(n->elemento);
     }
     bool vacio() {
         if(t == 0) return true;
