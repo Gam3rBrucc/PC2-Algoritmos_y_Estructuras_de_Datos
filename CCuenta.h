@@ -10,7 +10,11 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-// TODO falta desarrollar la classe CCuenta
+#define ARCH_U "usuarios.bin" // ARCH_U se refiere a ARCHivo Usuarios
+#define ARCH_T "taxistas.bin" // ARCH_T se refiere a ARCHivo Taxistas
+
+// TODO falta desarrollar opciones 2 y 4 de cuenta usuario
+// TODO falta desarrollar opciones 2,4 y 5 de cuenta taxista
 
 class CCuenta {
     CUsuario usuario;
@@ -41,13 +45,23 @@ public:
         } else if(input == "2") { // Ver historial de viajes
 
         } else if(input == "3") { // Cambiar datos
-
+            cambiarDatos('U');
+            CCuenta cuenta_U(usuario);
         } else if(input == "4") { // Pedir taxi
 
         } else if(input == "5") { // Eliminar cuenta
-
+            cout << "\nEstas seguro que quieres eliminar tu cuenta?\n(SI/NO): ";
+            string si_no;
+            cin >> si_no;
+            if(si_no == "SI") {
+                eliminarCuenta('U');
+            } else if(si_no == "NO") {
+                CCuenta cuenta_U(usuario);
+            } else {
+                cout << "\n~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+                CCuenta cuenta_U(usuario);
+            }
         } else if(input == "r" || input == "R") { // Regresar pagina
-
         } else cout << "\n\n\t~ERROR~\n\n";
     }
     CCuenta(CTaxista obj) { // Corre si el obj pasado es de taxista
@@ -70,20 +84,144 @@ public:
         }
 
         if(input == "1") { // Ver datos de cuenta
+            cout << "=============== Datos de cuenta ===============\n\n";
             cout << taxista.mostrar_info();
             CCuenta cuenta_T(taxista);
         } else if(input == "2") { // Ver historial de viajes
 
         } else if(input == "3") { // Cambiar datos
-
+            cambiarDatos('T');
+            CCuenta cuenta_T(taxista);
         } else if(input == "4") { // Buscar pasajero
 
         } else if(input == "5") { // Registrar automovil
 
         } else if(input == "6") { // Eliminar cuenta
-
+            cout << "\nEstas seguro que quieres eliminar tu cuenta?\n(SI/NO): ";
+            string si_no;
+            cin >> si_no;
+            if(si_no == "SI") {
+                eliminarCuenta('T');
+            } else if(si_no == "NO") {
+                CCuenta cuenta_T(taxista);
+            } else {
+                cout << "\n~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+                CCuenta cuenta_T(taxista);
+            }
         } else if(input == "r" || input == "R") { // Regresar pagina
+        } else cout << "\n\n\t~ERROR~\n\n";
+    }
 
+    void eliminarCuenta(char tipo_de_cuenta) {
+        if(tipo_de_cuenta == 'U') {
+            CLista<CUsuario> lista_usuarios;
+            leerObjetosGuardados(ARCH_U, &lista_usuarios);
+            limpiarArchivo(ARCH_U);
+            lista_usuarios.recorrer_inicio([=](CUsuario o){
+                if (usuario.get_numero_celular() != o.get_numero_celular()) {
+                    guardarObjeto(ARCH_U, o);
+                }
+            });
+            cout << "\n~~Se logro eliminar la cuenta!\n";
+        } else if(tipo_de_cuenta == 'T') {
+            CLista<CTaxista> lista_taxistas;
+            leerObjetosGuardados(ARCH_T, &lista_taxistas);
+            limpiarArchivo(ARCH_T);
+            lista_taxistas.recorrer_inicio([=](CTaxista o){
+                if (taxista.get_numero_celular() != o.get_numero_celular()) {
+                    guardarObjeto(ARCH_T, o);
+                }
+            });
+            cout << "\n~~Se logro eliminar la cuenta!\n";
+        } else cout << "\n\n\t~ERROR~\n\n";
+    }
+    void actualizarCuenta(char tipo_de_cuenta, int celular) {
+        if(tipo_de_cuenta == 'U') {
+            CLista<CUsuario> lista_usuarios;
+            leerObjetosGuardados(ARCH_U, &lista_usuarios);
+            limpiarArchivo(ARCH_U);
+            lista_usuarios.recorrer_inicio([&celular](CUsuario o) {
+                if(o.get_numero_celular() == celular) {
+                    guardarObjeto(ARCH_U, o);
+                }
+            });
+        } else if(tipo_de_cuenta == 'T') {
+            CLista<CTaxista> lista_taxistas;
+            leerObjetosGuardados(ARCH_T, &lista_taxistas);
+            limpiarArchivo(ARCH_T);
+            lista_taxistas.recorrer_inicio([&celular](CTaxista o) {
+                if(o.get_numero_celular() == celular) {
+                    guardarObjeto(ARCH_T, o);
+                }
+            });
+        } else cout << "\n\n\t~ERROR~\n\n";
+    }
+    bool verificarCelular(int celular) {
+        bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
+        CLista<CTaxista> lista_taxistas;
+        CLista<CUsuario> lista_usuarios;
+        leerObjetosGuardados(ARCH_T, &lista_taxistas);
+        lista_taxistas.recorrer_inicio([&celular, &num_cel_disponible](CTaxista o){
+            if(o.get_numero_celular() == celular) num_cel_disponible = false;
+        });
+        leerObjetosGuardados(ARCH_U, &lista_usuarios);
+        lista_usuarios.recorrer_inicio([&celular, &num_cel_disponible](CUsuario o){
+            if(o.get_numero_celular() == celular) num_cel_disponible = false;
+        });
+        return num_cel_disponible;
+    }
+    void cambiarDatos(char tipo_de_cuenta) {
+        cout << "=============== Cambiar datos ===============\n\n";
+        cout << "\t[1] Numero de celular\n";
+        cout << "\t[2] Contrasenia\n";
+        cout << "\t[R] Regresar\n";
+        cout << "\nElija una opcion: ";
+
+        string input;
+        cin >> input;
+        while(input != "1" && input != "2" && input != "r" && input != "R") {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+            cin >> input;
+        }
+
+        if(input == "1") { // Cambiar numero de celular
+            cout << "\nPorfavor ingrese su nuevo numero de celular: ";
+            int nuevo_numero_de_celular;
+            cin >> nuevo_numero_de_celular;
+
+            if(verificarCelular(nuevo_numero_de_celular)) {
+                if(tipo_de_cuenta == 'U') {
+                    int antiguo_celular = usuario.get_numero_celular();
+                    usuario.set_numero_celular(nuevo_numero_de_celular);
+                    actualizarCuenta('U', antiguo_celular);
+                }
+                if(tipo_de_cuenta == 'T') {
+                    int antiguo_celular = taxista.get_numero_celular();
+                    taxista.set_numero_celular(nuevo_numero_de_celular);
+                    actualizarCuenta('T', antiguo_celular);
+                }
+
+                cout << "\nSu numero de celular ha sido actualizada exitosamente!!!\n";
+            } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor ingrese otro numero de celular\n";
+
+        } else if(input == "2") { // Cambiar contrasenia
+            cout << "\nPorfavor ingrese su nueva contrasenia: ";
+            string nueva_contrasenia;
+            cin >> nueva_contrasenia;
+
+            if(tipo_de_cuenta == 'U') {
+                usuario.set_contrasenia(nueva_contrasenia);
+                actualizarCuenta('U', usuario.get_numero_celular());
+            }
+            if(tipo_de_cuenta == 'T') {
+                taxista.set_contrasenia(nueva_contrasenia);
+                actualizarCuenta('T', taxista.get_numero_celular());
+            }
+
+            cout << "\nSu contrasenia ha sido actualizada exitosamente!!!\n";
+        } else if(input == "r" || input == "R") { // Regresar
+            if(tipo_de_cuenta == 'U') CCuenta cuenta_U(usuario);
+            if(tipo_de_cuenta == 'T') CCuenta cuenta_T(taxista);
         } else cout << "\n\n\t~ERROR~\n\n";
     }
 };
