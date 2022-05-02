@@ -35,4 +35,10 @@ public:
     string get_nombre() {
         return nombre;
     }
+    string get_apellido() {
+        return apellido;
+    }
+    string info_auto() {
+        return automovil.get_modelo() + " [" + automovil.get_placa() + "]";
+    }
 };
