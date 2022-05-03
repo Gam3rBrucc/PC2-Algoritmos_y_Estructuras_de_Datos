@@ -1,13 +1,7 @@
 #include <iostream>
 #include "CMenu.h"
-#include "CLista.h"
-#include "Archivo.h"
-#include "CTaxista.h"
-#include "CAutomovil.h"
-#include "CPila.h"
 
 using std::cout;
-using std::endl;
 
 int main() {
     srand(time(NULL));
@@ -25,34 +19,3 @@ int main() {
 
     return 0;
 }
-
-//struct Person {
-//    std::string name;
-//    short age;
-//
-//    Person() {}
-//    Person(string n, short a) {
-//        name = n;
-//        age = a;
-//    }
-//
-//    std::string info() {
-//        return name + ", " + std::to_string(age);
-//    }
-//};
-//
-//int main() {
-//
-//    CPila<Person> pila;
-//
-//    pila.push(Person("Bruci", 19));
-//    pila.push(Person("Dibi", 17));
-//    pila.push(Person("grrrr", 99));
-//    pila.push(Person("Tilin", 12));
-//
-//    pila.recorrer_ultimo([](Person o){cout << o.info() << endl;});
-//    cout << endl;
-//    pila.recorrer_primero([](Person o){cout << o.info() << endl;});
-//
-//    return 0;
-//};
