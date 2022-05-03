@@ -19,10 +19,14 @@ public:
     CTaxista() {}
     CTaxista(string n, string a, short e, int ndc, string c, CAutomovil au) : CPersona(n,a,e,ndc,c) {
         automovil = au;
+        lista_pasajeros = new CPila<CPasajero>();
     }
 
-    void agregar_pasajero() {
-
+    void agregar_pasajero(string p, string u, string d, short c) {
+        lista_pasajeros->push(CPasajero(p, u, d, c));
+    }
+    void recorrer_viajes(std::function<void(CPasajero)> r_pas) {
+        lista_pasajeros->recorrer_ultimo([&](CPasajero o){r_pas(o);});
     }
     string mostrar_info() {
         return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(numero_de_celular) + "\nAutomovil: " + automovil.info() + "\nContrasenia: " + contrasenia + "\n\n";
