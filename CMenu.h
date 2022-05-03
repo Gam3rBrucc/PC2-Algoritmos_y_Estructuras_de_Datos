@@ -36,7 +36,7 @@ public:
             cout << "Gracias por usar nuesto app, hasta luego! (^o^)/\n";
             cout << "=============================================\n";
         } else if(input == "admin") { // Modo admin fachero facherito
-            cout << "\nBienvenido al modo admin!!!";
+            cout << "\nBienvenido al modo admin!!!\n";
             CAdmin();
             CMenu();
         } else cout << "\n\n\t~ERROR~\n\n"; // Solo debe correr y hay
