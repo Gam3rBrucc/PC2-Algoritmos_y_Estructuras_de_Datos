@@ -12,7 +12,8 @@ template <class Generico>
 class CPila {
     Nodo<Generico>* primero;
     Nodo<Generico>* ultimo;
-    size_t t, tope;
+    size_t t;
+    size_t tope;
 
 public:
     CPila() {
@@ -61,6 +62,7 @@ public:
     }
     void recorrer_ultimo(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = ultimo;
+        if(n == nullptr) return;
         while(n->ant != nullptr) {
             r_nodo(n->elemento);
             n = n->ant;
@@ -69,6 +71,7 @@ public:
     }
     void recorrer_primero(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = primero;
+        if(n == nullptr) return;
         while(n->sig != nullptr) {
             r_nodo(n->elemento);
             n = n->sig;
