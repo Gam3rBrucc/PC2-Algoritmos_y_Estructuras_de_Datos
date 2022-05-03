@@ -23,4 +23,10 @@ public:
     string get_placa() {
         return placa_automovil;
     }
+    void set_modelo(string m) {
+        modelo_automovil = m;
+    }
+    void set_placa(string p) {
+        placa_automovil = p;
+    }
 };
