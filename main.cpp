@@ -9,9 +9,9 @@
 using std::cout;
 using std::endl;
 
-// TODO hacer un metodo de ordenamiento
-
 int main() {
+    srand(time(NULL));
+
     cout << "===============================\n";
     cout << "\tBienvendio a UPC Rider!\n";
     cout << "===============================\n";
@@ -19,8 +19,7 @@ int main() {
     cout << "\tU20211E803 - Bruce Matias Fleck Ojeda\n";
     cout << "\tU202116752 - Cesar Rafael Sanchez Garay\n";
     cout << "\tU201921599 - Joaquin Enrique Mantilla Huaranga\n\n";
-    cout << "Esperamos le guste nuestro trabajo!\n";
-    cout << "============================================\n";
+    cout << "Esperamos le guste nuestro trabajo!\n\n";
 
     CMenu();
 
@@ -44,17 +43,16 @@ int main() {
 //
 //int main() {
 //
-//    CPila<Person> pila(3);
+//    CPila<Person> pila;
 //
 //    pila.push(Person("Bruci", 19));
 //    pila.push(Person("Dibi", 17));
 //    pila.push(Person("grrrr", 99));
-//
-//    pila.peek([](Person o){cout << o.info() << endl;});
-//
 //    pila.push(Person("Tilin", 12));
 //
-//    pila.peek([](Person o){cout << o.info() << endl;});
+//    pila.recorrer_ultimo([](Person o){cout << o.info() << endl;});
+//    cout << endl;
+//    pila.recorrer_primero([](Person o){cout << o.info() << endl;});
 //
 //    return 0;
 //};
