@@ -21,6 +21,9 @@ public:
         automovil = au;
     }
 
+    void agregar_pasajero() {
+
+    }
     string mostrar_info() {
         return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(numero_de_celular) + "\nAutomovil: " + automovil.info() + "\nContrasenia: " + contrasenia + "\n\n";
     }
@@ -44,6 +47,10 @@ public:
     }
     string info_auto() {
         return automovil.get_modelo() + " [" + automovil.get_placa() + "]";
+    }
+    void set_auto(string m, string p) {
+        automovil.set_modelo(m);
+        automovil.set_placa(p);
     }
     bool auto_registrado() {
         if(automovil.get_modelo() == "N/A") return false;
