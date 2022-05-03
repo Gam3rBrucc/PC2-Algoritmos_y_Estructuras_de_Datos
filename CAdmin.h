@@ -13,6 +13,8 @@ using std::endl;
 #define ARCH_U "usuarios.bin" // ARCH_U se refiere a ARCHivo Usuarios
 #define ARCH_T "taxistas.bin" // ARCH_T se refiere a ARCHivo Taxistas
 
+// TODO Implementa algoritmo de ordenamiento
+
 class CAdmin {
     bool encontro_usuario = false;
     bool encontro_taxista = false;
@@ -24,13 +26,16 @@ public:
         cout << "\t[R] Regresar\n";
         cout << "\nElija una opcion: ";
 
-        string input;
-        cin >> input;
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "r" && input != "R") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
 
-        while(input != "1" && input != "2" && input != "r" && input != "R") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
+        char input;
+        cin >> input;
+        input = revisar_input(input);
 
         CLista<CUsuario> lista_usuarios;
         CLista<CTaxista> lista_taxistas;
@@ -38,7 +43,8 @@ public:
         leerObjetosGuardados<CUsuario>(ARCH_U, &lista_usuarios);
         leerObjetosGuardados<CTaxista>(ARCH_T, &lista_taxistas);
 
-        if(input == "1") { // Recorre las listas de usuarios y taxistas mostrando toda la informacion de estas
+        if(input == '1') { // Recorre las listas de usuarios y taxistas mostrando toda la informacion de estas
+            // TODO implementarlo aqui
             cout << "====================== Lista de usuarios ======================\n\n";
             lista_usuarios.recorrer_inicio([](CUsuario o){cout << o.mostrar_info();});
             cout << "====================== Lista de taxistas ======================\n\n";
@@ -46,7 +52,7 @@ public:
 
             CAdmin();
 
-        } else if(input == "2") { // Eliminar cuenta
+        } else if(input == '2') { // Eliminar cuenta
             cout << "Para eliminar esta cuenta necesitas ingresar el numero de celular y contrasenia del usuario.\n\n";
             cout << "\tNumero de celular: ";
 
@@ -85,7 +91,19 @@ public:
 
             CAdmin();
 
-        } else if(input == "r" || input == "R") { // Regresar pagina
+        } else if(input == 'r' || input == 'R') { // Regresar pagina
         } else cout << "\n\n\t~ERROR~\n\n";
     }
+    char revisar_input(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != 'r' && in != 'R') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input(ingr);
+        } else return ingr;
+    }
+    void bubble_sort() {
+
+    }
+    void
 };
