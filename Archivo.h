@@ -39,5 +39,6 @@ void leerObjetosGuardados(string archivo, CLista<Generico>* lista) {
         }
         leer.close();
         if(lista->get_t() > 1) lista->pop_back();
+
     } else cout << "~~ERROR, No se pudo abrir el archivo \"" << archivo << "\"\n";
 }
