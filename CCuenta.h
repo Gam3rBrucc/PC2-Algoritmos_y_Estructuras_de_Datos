@@ -30,39 +30,42 @@ public:
         cout << "\t[R] Regresar\n\n";
         cout << "Elija una opcion: ";
 
-        string input;
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "r" && input != "R") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
+        char input;
         cin >> input;
-        while(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "r" && input != "R") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
+        input = revisar_input1(input);
 
-        if(input == "1") { // Ver datos de cuenta
+        if(input == '1') { // Ver datos de cuenta
             cout << "=============== Datos de cuenta ===============\n\n";
             cout << usuario.mostrar_info();
             CCuenta cuenta_U(usuario);
-        } else if(input == "2") { // Ver historial de viajes
+        } else if(input == '2') { // Ver historial de viajes
             ver_historial_viajes('U');
             CCuenta cuenta_U(usuario);
-        } else if(input == "3") { // Cambiar datos
+        } else if(input == '3') { // Cambiar datos
             cambiarDatos('U');
             CCuenta cuenta_U(usuario);
-        } else if(input == "4") { // Pedir taxi
+        } else if(input == '4') { // Pedir taxi
             pedirTaxi();
             CCuenta cuenta_U(usuario);
-        } else if(input == "5") { // Eliminar cuenta
-            cout << "\nEstas seguro que quieres eliminar tu cuenta?\n(SI/NO): ";
-            string si_no;
+        } else if(input == '5') { // Eliminar cuenta
+            cout << "\nEstas seguro que quieres eliminar tu cuenta?\n";
+            cout << "\n\t[S] Si\n";
+            cout << "\t[N] No\n";
+            cout << "Por favor ingrese una opcion: ";
+            char si_no;
             cin >> si_no;
-            if(si_no == "SI") {
-                eliminarCuenta('U');
-            } else if(si_no == "NO") {
-                CCuenta cuenta_U(usuario);
-            } else {
-                cout << "\n~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-                CCuenta cuenta_U(usuario);
-            }
-        } else if(input == "r" || input == "R") { // Regresar pagina
+            revisar_input4(si_no);
+//            string si_no;
+//            cin >> si_no;
+            if(si_no == 's' || si_no == 'S') eliminarCuenta('U');
+            else if(si_no == 'n' || si_no == 'N') CCuenta cuenta_U(usuario);
+        } else if(input == 'r' || input == 'R') { // Regresar pagina
         } else cout << "\n\n\t~ERROR~\n\n";
     }
     CCuenta(CTaxista obj) { // Corre si el obj pasado es de taxista
@@ -77,28 +80,32 @@ public:
         cout << "\t[R] Regresar\n\n";
         cout << "Elija una opcion: ";
 
-        string input;
-        cin >> input;
-        while(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "r" && input != "R") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "r" && input != "R") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
 
-        if(input == "1") { // Ver datos de cuenta
+        char input;
+        cin >> input;
+        input = revisar_input2(input);
+
+        if(input == '1') { // Ver datos de cuenta
             cout << "=============== Datos de cuenta ===============\n\n";
             cout << taxista.mostrar_info();
             CCuenta cuenta_T(taxista);
-        } else if(input == "2") { // Ver historial de viajes
+        } else if(input == '2') { // Ver historial de viajes
             ver_historial_viajes('T');
             CCuenta cuenta_T(taxista);
-        } else if(input == "3") { // Cambiar datos
+        } else if(input == '3') { // Cambiar datos
             cambiarDatos('T');
             CCuenta cuenta_T(taxista);
-        } else if(input == "4") { // Buscar pasajero
+        } else if(input == '4') { // Buscar pasajero
             cout << "\n~~Buscando un pasajero\n";
             buscar_pasajero();
             CCuenta cuenta_T(taxista);
-        } else if(input == "5") { // Registrar automovil
+        } else if(input == '5') { // Registrar automovil
             if(taxista.auto_registrado()) {
                 cout << "\n~~Ya tiene un automovil registrado!\n";
             } else {
@@ -115,19 +122,16 @@ public:
                 cout << "\n~~Automovil registrado con exito!!!\n";
             }
             CCuenta cuenta_T(taxista);
-        } else if(input == "6") { // Eliminar cuenta
+        } else if(input == '6') { // Eliminar cuenta
             cout << "\nEstas seguro que quieres eliminar tu cuenta?\n(SI/NO): ";
-            string si_no;
+//            string si_no;
+//            cin >> si_no;
+            char si_no;
             cin >> si_no;
-            if(si_no == "SI") {
-                eliminarCuenta('T');
-            } else if(si_no == "NO") {
-                CCuenta cuenta_T(taxista);
-            } else {
-                cout << "\n~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-                CCuenta cuenta_T(taxista);
-            }
-        } else if(input == "r" || input == "R") { // Regresar pagina
+            si_no = revisar_input4(si_no);
+            if(si_no == 's' || si_no == 'S') eliminarCuenta('U');
+            else if(si_no == 'n' || si_no == 'N') CCuenta cuenta_U(usuario);
+        } else if(input == 'r' || input == 'R') { // Regresar pagina
         } else cout << "\n\n\t~ERROR~\n\n";
     }
 
@@ -195,14 +199,18 @@ public:
         cout << "\t[R] Regresar\n";
         cout << "\nElija una opcion: ";
 
-        string input;
-        cin >> input;
-        while(input != "1" && input != "2" && input != "r" && input != "R") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "r" && input != "R") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
 
-        if(input == "1") { // Cambiar numero de celular
+        char input;
+        cin >> input;
+        input = revisar_input3(input);
+
+        if(input == '1') { // Cambiar numero de celular
             cout << "\nPorfavor ingrese su nuevo numero de celular: ";
             int nuevo_numero_de_celular;
             cin >> nuevo_numero_de_celular;
@@ -222,7 +230,7 @@ public:
                 cout << "\nSu numero de celular ha sido actualizada exitosamente!!!\n";
             } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor ingrese otro numero de celular\n";
 
-        } else if(input == "2") { // Cambiar contrasenia
+        } else if(input == '2') { // Cambiar contrasenia
             cout << "\nPorfavor ingrese su nueva contrasenia: ";
             string nueva_contrasenia;
             cin >> nueva_contrasenia;
@@ -237,7 +245,7 @@ public:
             }
 
             cout << "\nSu contrasenia ha sido actualizada exitosamente!!!\n";
-        } else if(input == "r" || input == "R") { // Regresar
+        } else if(input == 'r' || input == 'R') { // Regresar
             if(tipo_de_cuenta == 'U') CCuenta cuenta_U(usuario);
             if(tipo_de_cuenta == 'T') CCuenta cuenta_T(taxista);
         } else cout << "\n\n\t~ERROR~\n\n";
@@ -258,62 +266,13 @@ public:
         leerObjetosGuardados(ARCH_T, &lista_taxistas);
 
         cout << "\n~~Gracias!! Ahora buscamos un taxi, por favor espere...\n";
-        while(buscar) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            cout << "~~Buscando taxi...\n";
-            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
 
-            size_t indice = rand() % lista_taxistas.get_t();
-            while(!lista_taxistas.buscar_indice(indice).auto_registrado()) {
-                indice = rand() % lista_taxistas.get_t();
-            }
+        buscar_taxi(buscar, destino, ubicacion, taxi, lista_taxistas, respuesta);
 
-            taxi = lista_taxistas.buscar_indice(indice);
-
-            cout << taxi.get_nombre() << " " << taxi.get_apellido() << " - " << taxi.info_auto() << ", esta disponible para recogerte!\n";
-            cout << "\nAceptar a " << taxi.get_nombre() << "?\n";
-            cout << "\t[S] Si\n\t[N] No\n\t[C] Cancelar busqueda\n\n";
-            cout << "Por favor elija una opcion: ";
-            cin >> respuesta;
-            while(respuesta != "s" && respuesta != "S" && respuesta != "n" && respuesta != "N" && respuesta != "c" && respuesta != "C") {
-                cout << "\n~~Lo sentimos pero entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-                cin >> respuesta;
-            }
-
-            if(respuesta == "s" || respuesta == "S") {
-                buscar = false;
-                cout << "\n  ___\n";
-                cout << "    _-_-  _/\\______\\\\__\n";
-                cout << " _-_-__  / ,-. -|-  ,-.`-.\n";
-                cout << "    _-_- `( o )----( o )-'\n";
-                cout << "           `-'      `-'\n";
-                cout << "    Ya va a su destino!!!\n";
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-
-                short calificacion;
-                cout << "\n~Ya llego a su destino!\n";
-                cout << "\nQue calificacion quisiera darle a " << taxi.get_nombre() << "? (1-5): ";
-                cin >> calificacion;
-                while(calificacion > 5 || calificacion < 1) {
-                    cout << "Al parecer ha ingresado un numero que no esta entre el rango de 1 - 5, por favor ingrese un numero de nuevo\n";
-                    cin >> calificacion;
-                }
-
-                usuario.agregar_viaje(ubicacion, destino, calificacion, taxi.get_nombre(), taxi.info_auto());
-                cout << "\n~Gracias!!!\n";
-            } else if(respuesta == "n" || respuesta == "N") {
-                cout << "\n~Buscando otro taxi\n";
-            } else if(respuesta == "c" || respuesta == "C") {
-                buscar = false;
-                cout << "\n~Se ha cancelado la busqueda\n";
-            } else {
-                cout << "\n\n\t~~ERROR~~\n";
-            }
-        }
+        // (1)
     }
     void buscar_pasajero() {
-        string ubicaciones[5] = {"Casa", "Parque", "Banco", "Marcado", "Aeropuerto"};
+        string ubicaciones[5] = {"Casa", "Parque", "Banco", "Mercado", "Aeropuerto"};
         string destino[5] = {"Trabajo", "Colegio", "Universidad", "Hospital", "Fiesta"};
         string ubi;
         string dest;
@@ -321,6 +280,9 @@ public:
         CUsuario usuario;
         CLista<CUsuario> lista_usuarios;
         leerObjetosGuardados(ARCH_U, &lista_usuarios);
+
+        //pasajero(buscar, ubicaciones, destino, ubi, dest, usuario, lista_usuarios);
+
         while(buscar) {
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
             size_t indice = rand() % lista_usuarios.get_t();
@@ -373,7 +335,98 @@ public:
         if(tipo_de_cuenta == 'U') {
             usuario.recorrer_viajes([](CViaje o){cout << o.mostrar_info() << endl;});
         } else if(tipo_de_cuenta == 'T') {
-            taxista.recorrer_viajes([](CPasajero o){cout << o.mostrar_info() << endl;});
+            //taxista.recorrer_viajes([](CPasajero o){cout << o.mostrar_info() << endl;});
         }
     }
+
+    char revisar_input1(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != '3' && in != '4' && in != '5' && in != 'r' && in != 'R') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input1(ingr);
+        } else return ingr;
+    }
+    char revisar_input2(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != '3' && in != '4' && in != '5' && in != '6' && in != 'r' && in != 'R') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input1(ingr);
+        } else return ingr;
+    }
+    char revisar_input3(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != 'r' && in != 'R') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input1(ingr);
+        } else return ingr;
+    }
+    char revisar_input4(char in) {
+        char ingr = in;
+        if(in != 'n' && in != 'N' && in != 's' && in != 'S') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input1(ingr);
+        } else return ingr;
+    }
+    bool buscar_taxi(bool buscar, string dest, string ubi, CTaxista tax, CLista<CTaxista> lista_tax, string res) {
+        if(buscar) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            cout << "~~Buscando taxi...\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+
+            size_t indice = rand() % lista_tax.get_t();
+            while(!lista_tax.buscar_indice(indice).auto_registrado()) {
+                indice = rand() % lista_tax.get_t();
+            }
+
+            tax = lista_tax.buscar_indice(indice);
+
+            cout << tax.get_nombre() << " " << tax.get_apellido() << " - " << tax.info_auto() << ", esta disponible para recogerte!\n";
+            cout << "\nAceptar a " << tax.get_nombre() << "?\n";
+            cout << "\t[S] Si\n\t[N] No\n\t[C] Cancelar busqueda\n\n";
+            cout << "Por favor elija una opcion: ";
+            cin >> res;
+            while(res != "s" && res != "S" && res != "n" && res != "N" && res != "c" && res != "C") {
+                cout << "~~Lo sentimos pero entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+                cin >> res;
+            }
+
+            if(res == "s" || res == "S") {
+                buscar = false;
+                cout << "\n  ___\n";
+                cout << "    _-_-  _/\\______\\\\__\n";
+                cout << " _-_-__  / ,-. -|-  ,-.`-.\n";
+                cout << "    _-_- `( o )----( o )-'\n";
+                cout << "           `-'      `-'\n";
+                cout << "    Ya va a su destino!!!\n";
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+                short calificacion;
+                cout << "\n~Ya llego a su destino!\n";
+                cout << "\nQue calificacion quisiera darle a " << tax.get_nombre() << "? (1-5): ";
+                cin >> calificacion;
+                while(calificacion > 5 || calificacion < 1) {
+                    cout << "Al parecer ha ingresado un numero que no esta entre el rango de 1 - 5, por favor ingrese un numero de nuevo\n";
+                    cin >> calificacion;
+                }
+
+                usuario.agregar_viaje(ubi, dest, calificacion, tax.get_nombre(), tax.info_auto());
+                cout << "\n~Gracias!!!\n";
+            } else if(res == "n" || res == "N") {
+                cout << "\n~Buscando otro taxi\n";
+            } else if(res == "c" || res == "C") {
+                buscar = false;
+                cout << "\n~Se ha cancelado la busqueda\n";
+            } else {
+                cout << "\n\n\t~~ERROR~~\n";
+            }
+            buscar_taxi(buscar, ubi, dest, tax, lista_tax, res);
+        } else return false;
+    }
+
+    // (3)
 };
