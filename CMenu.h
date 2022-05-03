@@ -9,6 +9,7 @@ using std::cin;
 using std::string;
 
 class CMenu {
+    string in;
 public:
     CMenu() {
         cout << "=================== Menu ===================\n\n";
@@ -17,28 +18,40 @@ public:
         cout << "\t[S] Salir de la app\n\n";
         cout << "Por favor elija una opcion: ";
 
-        string input;
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "s" && input != "S" && input != "admin") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
+
+        char input;
         cin >> input;
+        input = revisar_input(input);
 
-        while(input != "1" && input != "2" && input != "s" && input != "S" && input != "admin") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
-
-        if(input == "1") { // Login
+        if(input == '1') { // Login
             CLogin();
             CMenu();
-        } else if(input == "2") { // Registro
+        } else if(input == '2') { // Registro
             CRegistro();
             CMenu();
-        } else if(input == "s" || input == "S") { // Salir de la app (terminar programa)
+        } else if(input == 's' || input == 'S') { // Salir de la app (terminar programa)
             cout << "=============================================\n";
             cout << "Gracias por usar nuesto app, hasta luego! (^o^)/\n";
             cout << "=============================================\n";
-        } else if(input == "admin") { // Modo admin fachero facherito
+        } else if(input == 'a' || input == 'A') { // Modo admin fachero facherito
             cout << "\nBienvenido al modo admin!!!\n";
             CAdmin();
             CMenu();
-        } else cout << "\n\n\t~ERROR~\n\n"; // Solo debe correr y hay
+        } else cout << "\n\n\t~ERROR~\n\n"; // Solo debe correr y hay un error
+    }
+
+    char revisar_input(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != 's' && in != 'S' && in != 'a' && in != 'A') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input(ingr);
+        } else return ingr;
     }
 };
