@@ -81,22 +81,24 @@ public:
 
             cout << "\nDesea tambien registrar su automovil que usara para llevar a pasajeros?\n";
             cout << "Puede hacerlo luego si desea, pero no podra recojer pasajeros hasta que tenga un automovil registrado\n";
-            cout << "\t(si / no): ";
+            cout << "\t[S] Si";
+            cout << "\n\t[N] No";
+            cout << "\nPor favor elija una respeusta: ";
 
             input = "";
             cin >> input;
-            while(input != "si" && input != "no") {
+            while(input != "s" && input != "S" && input != "n" && input != "N") {
                 cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
                 cin >> input;
             }
 
-            if(input == "si") {
+            if(input == "s" || input == "S") {
                 cout << "\tModelo de automovil: ";
                 cin >> modelo_auto;
                 cout << "\tPlaca de automovil: ";
                 cin >> placa_auto;
                 automovil = new CAutomovil(modelo_auto, placa_auto);
-            } else if(input == "no") {
+            } else if(input == "n" || input == "N") {
                 automovil = new CAutomovil("N/A", "N/A");
             } else cout << "\n\n\t~ERROR~\n\n";
 
