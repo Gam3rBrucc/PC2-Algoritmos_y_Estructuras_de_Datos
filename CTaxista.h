@@ -2,6 +2,8 @@
 #include <iostream>
 #include "CPersona.h"
 #include "CAutomovil.h"
+#include "CPasajero.h"
+#include "CPila.h"
 
 using std::string;
 using std::cout;
@@ -11,6 +13,8 @@ using std::endl;
 class CTaxista : protected CPersona {
 protected:
     CAutomovil automovil;
+    CPila<CPasajero>* lista_pasajeros;
+
 public:
     CTaxista() {}
     CTaxista(string n, string a, short e, int ndc, string c, CAutomovil au) : CPersona(n,a,e,ndc,c) {
@@ -40,5 +44,9 @@ public:
     }
     string info_auto() {
         return automovil.get_modelo() + " [" + automovil.get_placa() + "]";
+    }
+    bool auto_registrado() {
+        if(automovil.get_modelo() == "N/A") return false;
+        else return true;
     }
 };
