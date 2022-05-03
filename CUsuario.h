@@ -8,21 +8,16 @@
 using std::string;
 
 class CUsuario : protected CPersona {
-    size_t t_arreglo;
-    CViaje viajes_arreglo[0];
-    CPila<CViaje>* viajes;
+    CPila<CViaje> lista_viajes;
 public:
     CUsuario() {}
     CUsuario(string n, string a, short e, int ndc, string c) : CPersona(n,a,e,ndc,c) {}
 
-    void preparar_para_almacenamiento() {
-
+    void agregar_viaje(string ubi, string dir, short cal, string cho, string aut) {
+        lista_viajes.push(CViaje(ubi, dir, cal, cho, aut));
     }
-    void sacar_de_almacenamiento() {
-
-    }
-    void agregar_viaje(CViaje v) {
-        viajes->push(v);
+    void recorrer_viajes(std::function<void(CViaje)> r_viaje) {
+        lista_viajes.recorrer_ultimo([&](CViaje o){r_viaje(o);});
     }
     string mostrar_info() {
         return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(numero_de_celular) + "\nContrasenia: " + contrasenia + "\n\n";
@@ -41,5 +36,8 @@ public:
     }
     string get_nombre() {
         return nombre;
+    }
+    string get_apellido() {
+        return apellido;
     }
 };
