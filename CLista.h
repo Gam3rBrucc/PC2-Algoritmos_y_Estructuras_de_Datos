@@ -18,6 +18,10 @@ public:
         t = 0;
     }
 
+//    size_t calcular_fibonacci(size_t t) {
+//        if(t == 1) return 1;
+//        return
+//    }
     void push_front(Generico e) {
         Nodo<Generico>* n = new Nodo<Generico>(e);
         if(t == 0) inicio = fin = n;
@@ -62,6 +66,7 @@ public:
             n = n->sig;
         }
         r_nodo(n->elemento);
+
     }
     void recorrer_fin(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = fin;
