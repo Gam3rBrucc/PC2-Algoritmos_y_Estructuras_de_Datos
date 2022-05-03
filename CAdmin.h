@@ -18,7 +18,7 @@ class CAdmin {
     bool encontro_taxista = false;
 public:
     CAdmin() {
-        cout << "\n=================== Modo Admin ===================\n";
+        cout << "=================== Modo Admin ===================\n";
         cout << "\n\t[1] Ver informacion de todos las cuentas registradas\n";
         cout << "\t[2] Eliminar cuenta\n";
         cout << "\t[R] Regresar\n";
