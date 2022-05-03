@@ -25,13 +25,15 @@ public:
         cout << "\t[R] Regresar a pagina anterior\n\n";
         cout << "Elija una opcion: ";
 
-        string input;
+//        string input;
+//        cin >> input;
+//        while(input != "1" && input != "2" && input != "r" && input != "R") {
+//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//            cin >> input;
+//        }
+        char input;
         cin >> input;
-
-        while(input != "1" && input != "2" && input != "r" && input != "R") {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-            cin >> input;
-        }
+        input = revisar_input(input);
 
         string nombre, apellido, contrasenia;
         string modelo_auto = "-";
@@ -42,7 +44,7 @@ public:
         CTaxista* cuenta_taxista;
         CAutomovil* automovil;
 
-        if(input == "1") { // Creacion de cuenta de pasajero
+        if(input == '1') { // Creacion de cuenta de pasajero
             cout << "================= Ingreso de datos =================\n\n";
             cout << "\tNombre: ";
             cin >> nombre;
@@ -66,7 +68,7 @@ public:
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
 
-        } else if(input == "2") { // Creacion de cuenta de taxista
+        } else if(input == '2') { // Creacion de cuenta de taxista
             cout << "================= Ingreso de datos =================\n\n";
             cout << "\tNombre: ";
             cin >> nombre;
@@ -85,20 +87,21 @@ public:
             cout << "\n\t[N] No";
             cout << "\nPor favor elija una respeusta: ";
 
-            input = "";
+            input = '-';
             cin >> input;
-            while(input != "s" && input != "S" && input != "n" && input != "N") {
-                cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-                cin >> input;
-            }
+//            while(input != "s" && input != "S" && input != "n" && input != "N") {
+//                cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
+//                cin >> input;
+//            }
+            input = revisar_input1(input);
 
-            if(input == "s" || input == "S") {
+            if(input == 's' || input == 'S') {
                 cout << "\tModelo de automovil: ";
                 cin >> modelo_auto;
                 cout << "\tPlaca de automovil: ";
                 cin >> placa_auto;
                 automovil = new CAutomovil(modelo_auto, placa_auto);
-            } else if(input == "n" || input == "N") {
+            } else if(input == 'n' || input == 'N') {
                 automovil = new CAutomovil("N/A", "N/A");
             } else cout << "\n\n\t~ERROR~\n\n";
 
@@ -112,7 +115,7 @@ public:
             } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n";
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-        } else if(input == "r" || input == "R") { // Regresar a pagina anterior
+        } else if(input == 'r' || input == 'R') { // Regresar a pagina anterior
         } else cout << "\n\n\t~ERROR~\n\n";
     }
 
@@ -129,5 +132,22 @@ public:
             if(o.get_numero_celular() == celular) num_cel_disponible = false;
         });
         return num_cel_disponible;
+    }
+
+    char revisar_input(char in) {
+        char ingr = in;
+        if(in != '1' && in != '2' && in != 'r' && in != 'R') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input(ingr);
+        } else return ingr;
+    }
+    char revisar_input1(char in) {
+        char ingr = in;
+        if(in != 's' && in != 'S' && in != 'n' && in != 'N') {
+            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
+            cin >> ingr;
+            return revisar_input(ingr);
+        } else return ingr;
     }
 };
