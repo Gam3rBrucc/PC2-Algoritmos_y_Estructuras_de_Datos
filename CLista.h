@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <functional>
-#include "SNodo.h"
+#include "CNodo.h"
 
 using std::string;
 using std::cout;
@@ -56,6 +56,7 @@ public:
     }
     void recorrer_inicio(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = inicio;
+        if(n == nullptr) return;
         while(n->sig != nullptr) {
             r_nodo(n->elemento);
             n = n->sig;
@@ -64,11 +65,19 @@ public:
     }
     void recorrer_fin(std::function<void(Generico)> r_nodo) {
         Nodo<Generico>* n = fin;
+        if(n == nullptr) return;
         while(n->ant != nullptr) {
             r_nodo(n->elemento);
             n = n->ant;
         }
         r_nodo(n->elemento);
+    }
+    Generico buscar_indice(size_t indice) {
+        Nodo<Generico>* n = inicio;
+        for(size_t i=0; i<indice; ++i) {
+            n = n->sig;
+        }
+        return n->elemento;
     }
     size_t get_t() {
         return t;
