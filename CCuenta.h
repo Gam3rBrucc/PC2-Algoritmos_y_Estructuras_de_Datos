@@ -76,7 +76,7 @@ public:
         cout << "\t[3] Cambiar datos\n";
         cout << "\t[4] Buscar pasajero\n";
         cout << "\t[5] Registrar automovil\n";
-        cout << "\t[6] Eliminar cuenta\n";
+        cout << "\t[7] Eliminar cuenta\n";
         cout << "\t[R] Regresar\n\n";
         cout << "Elija una opcion: ";
 
@@ -106,6 +106,20 @@ public:
             buscar_pasajero();
             CCuenta cuenta_T(taxista);
         } else if(input == '5') { // Registrar automovil
+            if(!taxista.auto_registrado()) {
+                string modelo;
+                string placa;
+                cout << "\nPor favor ingrese el modelo de su automovil: ";
+                cin >> modelo;
+                cout << "Y la placa del mismo: ";
+                cin >> placa;
+
+                taxista.set_auto(modelo, placa);
+                actualizarCuentaTaxista(taxista.get_numero_celular(), taxista);
+
+                cout << "\n~~Automovil registrado con exito!!!\n";
+            }
+
             if(taxista.auto_registrado()) {
                 cout << "\n~~Ya tiene un automovil registrado!\n";
             } else {
