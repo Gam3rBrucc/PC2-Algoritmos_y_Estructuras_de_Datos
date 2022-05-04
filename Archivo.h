@@ -10,7 +10,8 @@ using std::cin;
 using std::endl;
 using std::ios;
 
-void limpiarArchivo(string archivo) {
+void limpiarArchivo(string archivo) // Para cambiar datos, se guarda la lista y se crea una nueva pero con los datos nuevos
+{
     std::ofstream limpiar;
     limpiar.open(archivo, ios::binary);
     if(limpiar.is_open()) {}
