@@ -12,15 +12,22 @@ using std::endl;
 
 class CTaxista : protected CPersona {
 protected:
+    //short i_auto;
     CAutomovil automovil;
+    //CAutomovil autos[5];
     CPila<CPasajero> lista_pasajeros;
 
 public:
     CTaxista() {}
     CTaxista(string n, string a, short e, int ndc, string c, CAutomovil au) : CPersona(n,a,e,ndc,c) {
-        automovil = au;
+        //i_auto = 0;
+        //autos[0] = au;
     }
 
+//    bool autos_lleno() {
+//        if(i_auto == 4) return true;
+//        else return false;
+//    }
     void agregar_pasajero(string p, string u, string d, short c) {
         lista_pasajeros.push(CPasajero(p, u, d, c));
     }
@@ -52,6 +59,11 @@ public:
         return automovil.get_modelo() + " [" + automovil.get_placa() + "]";
     }
     void set_auto(string m, string p) {
+//        if(!autos_lleno()) {
+//            ++i_auto;
+//            autos[i_auto].set_modelo(m);
+//            autos[i_auto].set_placa(p);
+//        }
         automovil.set_modelo(m);
         automovil.set_placa(p);
     }
