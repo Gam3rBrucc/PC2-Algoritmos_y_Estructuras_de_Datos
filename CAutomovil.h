@@ -1,32 +1,32 @@
 #pragma once
+#ifndef UNTITLED10_CAUTOMOVIL_H
+#define UNTITLED10_CAUTOMOVIL_H
+
+#endif //UNTITLED10_CAUTOMOVIL_H
 #include <iostream>
-
-using std::string;
-
 class CAutomovil {
 protected:
-    string modelo_automovil;
-    string placa_automovil;
-
+    std::string modelo_auto;
+    std::string placa_auto;
 public:
-    CAutomovil(string ma = "-", string pa = "-") {
-        modelo_automovil = ma;
-        placa_automovil = pa;
+    CAutomovil() {}
+    CAutomovil(std::string ma, std::string pa) {
+        this->modelo_auto = ma;
+        this->placa_auto = pa;
     }
-
-    string info() {
-        return modelo_automovil + " [" + placa_automovil + "]";
+    std::string info() {
+        return modelo_auto+ " [" + placa_auto + "]";
     }
-    string get_modelo() {
-        return modelo_automovil;
+    std::string get_modelo() {
+        return modelo_auto;
     }
-    string get_placa() {
-        return placa_automovil;
+    std::string get_placa() {
+        return placa_auto;
     }
-    void set_modelo(string m) {
-        modelo_automovil = m;
+    void set_modelo(std::string m) {
+        modelo_auto = m;
     }
-    void set_placa(string p) {
-        placa_automovil = p;
+    void set_placa(std::string p) {
+        placa_auto = p;
     }
 };
