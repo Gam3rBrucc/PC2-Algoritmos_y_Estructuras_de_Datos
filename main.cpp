@@ -25,10 +25,8 @@ int main() {
 
     CMenu(&lista_usuarios, &lista_taxistas);
 
-    FILE* f = fopen("usuarios.txt","w");
-    if(f != NULL) fclose(f);
-    FILE* g = fopen("taxistas.txt","w");
-    if(g != NULL) fclose(g);
+    limpiarArchivo("usuarios.txt");
+    limpiarArchivo("taxistas.txt");
     for(auto i : lista_usuarios) guardarObjeto("usuarios.txt", i);
     for(auto i : lista_taxistas) guardarObjeto("taxistas.txt", i);
 
