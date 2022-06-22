@@ -1,74 +1,67 @@
 #pragma once
+#ifndef UNTITLED10_CTAXISTA_H
+#define UNTITLED10_CTAXISTA_H
+
+#endif //UNTITLED10_CTAXISTA_H
 #include <iostream>
+#include <functional>
 #include "CPersona.h"
 #include "CAutomovil.h"
 #include "CPasajero.h"
 #include "CPila.h"
-
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-
 class CTaxista : protected CPersona {
-protected:
-    //short i_auto;
     CAutomovil automovil;
-    //CAutomovil autos[5];
     CPila<CPasajero> lista_pasajeros;
-
 public:
     CTaxista() {}
-    CTaxista(string n, string a, short e, int ndc, string c, CAutomovil au) : CPersona(n,a,e,ndc,c) {
-        //i_auto = 0;
-        //autos[0] = au;
+    CTaxista(std::string n, std::string a, std::string p, short e, int ndc, CAutomovil au) : CPersona(n,a,p,e,ndc) {
+        automovil = au;
     }
-
-//    bool autos_lleno() {
-//        if(i_auto == 4) return true;
-//        else return false;
-//    }
-    void agregar_pasajero(string p, string u, string d, short c) {
+    void agregar_pasajero(std::string p, std::string u, std::string d, short c) {
         lista_pasajeros.push(CPasajero(p, u, d, c));
     }
     void recorrer_viajes(std::function<void(CPasajero)> r_pas) {
-        lista_pasajeros.recorrer_primero([&](CPasajero o){r_pas(o);});
+        lista_pasajeros.recorrer([&](CPasajero o){r_pas(o);});
     }
-    string mostrar_info() {
-        return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(numero_de_celular) + "\nAutomovil: " + automovil.info() + "\nContrasenia: " + contrasenia + "\n\n";
+    std::string mostrar_info() {
+        return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(num_cel) + "\nAutomovil: " + automovil.info() + "\nContrasenia: " + password + "\n\n";
     }
-    void set_numero_celular(int cel) {
-        numero_de_celular = cel;
+    void set_num_cel(int cel) {
+        num_cel = cel;
     }
-    int get_numero_celular() {
-        return numero_de_celular;
+    int get_num_cel() {
+        return num_cel;
     }
-    void set_contrasenia(string cont) {
-        contrasenia = cont;
+    void set_password(std::string cont) {
+        password = cont;
     }
-    string get_contrasenia() {
-        return contrasenia;
+    std::string get_password() {
+        return password;
     }
-    string get_nombre() {
+    std::string get_nombre() {
         return nombre;
     }
-    string get_apellido() {
+    std::string get_apellido() {
         return apellido;
     }
-    string info_auto() {
+    std::string info_auto() {
         return automovil.get_modelo() + " [" + automovil.get_placa() + "]";
     }
-    void set_auto(string m, string p) {
-//        if(!autos_lleno()) {
-//            ++i_auto;
-//            autos[i_auto].set_modelo(m);
-//            autos[i_auto].set_placa(p);
-//        }
+    void set_auto(std::string m, std::string p) {
         automovil.set_modelo(m);
         automovil.set_placa(p);
     }
     bool auto_registrado() {
         if(automovil.get_modelo() == "N/A") return false;
         else return true;
+    }
+    short get_edad() {
+        return edad;
+    }
+    std::string get_modelo_auto() {
+        return automovil.get_modelo();
+    }
+    std::string get_placa_auto() {
+        return automovil.get_placa();
     }
 };
