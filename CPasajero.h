@@ -1,25 +1,24 @@
 #pragma once
+#ifndef UNTITLED10_CPASAJERO_H
+#define UNTITLED10_CPASAJERO_H
+
+#endif //UNTITLED10_CPASAJERO_H
 #include <iostream>
 #include <string>
-
-using std::string;
-
 class CPasajero {
 public:
-    string ubicacion;
-    string destino;
+    std::string ubicacion;
+    std::string destino;
     short calificacion;
-    string nombre_pasajero;
-
+    std::string nombre_pasajero;
     CPasajero() {}
-    CPasajero(string p, string u, string d, short c) {
-        nombre_pasajero = p;
-        ubicacion = u;
-        destino = d;
-        calificacion = c;
+    CPasajero(std::string p, std::string u, std::string d, short c) {
+        this->nombre_pasajero = p;
+        this->ubicacion = u;
+        this->destino = d;
+        this->calificacion = c;
     }
-
-    string mostrar_info() {
-        return "Pasajero: " + nombre_pasajero + "\n\tUbicacion: " + ubicacion + "\n\tDestino: " + destino + "\nCalificaion: " + std::to_string(calificacion) + "\n";
+    std::string mostrar_info() {
+        return "Pasajero: " + nombre_pasajero + "\n\tUbicacion: " + ubicacion + "\n\tDestino: " + destino + "\nCalificaion: " + std::to_string(calificacion) + "\n\n";
     }
 };
