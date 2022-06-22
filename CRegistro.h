@@ -1,4 +1,8 @@
 #pragma once
+#ifndef UNTITLED10_CREGISTRO_H
+#define UNTITLED10_CREGISTRO_H
+
+#endif //UNTITLED10_CREGISTRO_H
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -6,147 +10,127 @@
 #include "CTaxista.h"
 #include "CAutomovil.h"
 #include "Archivo.h"
-
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-
-#define ARCH_U "usuarios.bin" // ARCH_U se refiere a ARCHivo Usuarios
-#define ARCH_T "taxistas.bin" // ARCH_T se refiere a ARCHivo Taxistas
-
 class CRegistro {
 public:
-    CRegistro() {
-        cout << "==================== Registro ====================\n";
-        cout << "Que tipo que cuenta quisiera crear?\n\n";
-        cout << "\t[1] Cuenta de pasajero\n";
-        cout << "\t[2] Cuenta de taxista\n";
-        cout << "\t[R] Regresar a pagina anterior\n\n";
-        cout << "Elija una opcion: ";
+    CRegistro(std::vector<CUsuario>* lista_usuarios, std::vector<CTaxista>* lista_taxistas) {
+        printf("==================== Registro ====================\n");
+        printf("Que tipo que cuenta quisiera crear?\n\n");
+        printf("\t[1] Cuenta de pasajero\n");
+        printf("\t[2] Cuenta de taxista\n");
+        printf("\t[R] Regresar a pagina anterior\n\n");
+        printf("Elija una opcion: ");
 
-//        string input;
-//        cin >> input;
-//        while(input != "1" && input != "2" && input != "r" && input != "R") {
-//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-//            cin >> input;
-//        }
         char input;
-        cin >> input;
+        scanf(" %c",&input);
         input = revisar_input(input);
 
-        string nombre, apellido, contrasenia;
-        string modelo_auto = "-";
-        string placa_auto = "-";
+        std::string nombre, apellido, contrasenia;
+        std::string modelo_auto = "-";
+        std::string placa_auto = "-";
         short edad;
         int numero_de_celular;
-        CUsuario* cuenta_usuario;
-        CTaxista* cuenta_taxista;
-        CAutomovil* automovil;
+        CAutomovil *automovil;
 
-        if(input == '1') { // Creacion de cuenta de pasajero
-            cout << "================= Ingreso de datos =================\n\n";
-            cout << "\tNombre: ";
-            cin >> nombre;
-            cout << "\tApellido: ";
-            cin >> apellido;
-            cout << "\tEdad: ";
-            cin >> edad;
-            cout << "\tNumero de celular: ";
-            cin >> numero_de_celular;
-            cout << "\tConstrasenia: ";
-            cin >> contrasenia;
+        if (input == '1') { // Creacion de cuenta de pasajero
+            printf("================= Ingreso de datos =================\n\n");
+            printf("\tNombre: ");
+            std::cin >> nombre;
+            printf("\tApellido: ");
+            std::cin >> apellido;
+            printf("\tEdad: ");
+            scanf("%hi", &edad);
+            printf("\tNumero de celular: ");
+            scanf("%d", &numero_de_celular);
+            printf("\tConstrasenia: ");
+            std::cin >> contrasenia;
 
-            cout << "\nCreando cuenta...\n";
+            printf("\nCreando cuenta...\n");
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-            if(verificarCelular(numero_de_celular)) {
-                cuenta_usuario = new CUsuario(nombre, apellido, edad, numero_de_celular, contrasenia); // Crea objeto de usuario
-                guardarObjeto<CUsuario>(ARCH_U, *cuenta_usuario); // Guarda objecto de usuario en archivo
-                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
-            } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n";
+            if (verificarCelular(numero_de_celular, lista_usuarios)) {
+                lista_usuarios->push_back(CUsuario(nombre, apellido, contrasenia, edad, numero_de_celular));
+                printf("Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n");
+            } else
+                printf("\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n");
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
 
-        } else if(input == '2') { // Creacion de cuenta de taxista
-            cout << "================= Ingreso de datos =================\n\n";
-            cout << "\tNombre: ";
-            cin >> nombre;
-            cout << "\tApellido: ";
-            cin >> apellido;
-            cout << "\tEdad: ";
-            cin >> edad;
-            cout << "\tNumero de celular: ";
-            cin >> numero_de_celular;
-            cout << "\tConstrasenia: ";
-            cin >> contrasenia;
+        } else if (input == '2') { // Creacion de cuenta de taxista
+            printf("================= Ingreso de datos =================\n\n");
+            printf("\tNombre: ");
+            std::cin >> nombre;
+            printf("\tApellido: ");
+            std::cin >> apellido;
+            printf("\tEdad: ");
+            scanf("%hi", &edad);
+            printf("\tNumero de celular: ");
+            scanf("%d", &numero_de_celular);
+            printf("\tConstrasenia: ");
+            std::cin >> contrasenia;
 
-            cout << "\nDesea tambien registrar su automovil que usara para llevar a pasajeros?\n";
-            cout << "Puede hacerlo luego si desea, pero no podra recojer pasajeros hasta que tenga un automovil registrado\n";
-            cout << "\t[S] Si";
-            cout << "\n\t[N] No";
-            cout << "\nPor favor elija una respeusta: ";
+            printf("\nDesea tambien registrar su automovil que usara para llevar a pasajeros?\n");
+            printf("Puede hacerlo luego si desea, pero no podra recojer pasajeros hasta que tenga un automovil registrado\n");
+            printf("\t[S] Si");
+            printf("\n\t[N] No");
+            printf("\nPor favor elija una respeusta: ");
 
             input = '-';
-            cin >> input;
-//            while(input != "s" && input != "S" && input != "n" && input != "N") {
-//                cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-//                cin >> input;
-//            }
+            scanf(" %c", &input);
             input = revisar_input1(input);
 
-            if(input == 's' || input == 'S') {
-                cout << "\tModelo de automovil: ";
-                cin >> modelo_auto;
-                cout << "\tPlaca de automovil: ";
-                cin >> placa_auto;
-                automovil = new CAutomovil(modelo_auto, placa_auto);
-            } else if(input == 'n' || input == 'N') {
-                automovil = new CAutomovil("N/A", "N/A");
-            } else cout << "\n\n\t~ERROR~\n\n";
+            if (input == 's' || input == 'S') {
+                printf("\tModelo de automovil: ");
+                std::cin >> modelo_auto;
+                printf("\tPlaca de automovil: ");
+                std::cin >> placa_auto;
+            } else if (input == 'n' || input == 'N') {
+                modelo_auto = "N/A";
+                placa_auto = "N/A";
+            } else printf("\n\n\t~ERROR~\n\n");
 
-            cout << "\nCreando cuenta...\n";
+            printf("\nCreando cuenta...\n");
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-            if(verificarCelular(numero_de_celular)) {
-                cuenta_taxista = new CTaxista(nombre, apellido, edad, numero_de_celular, contrasenia, *automovil); // Crea objeto de taxista
-                guardarObjeto<CTaxista>(ARCH_T, *cuenta_taxista); // Guarda objeto de taxista en archivo
-                cout << "Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n";
-            } else cout << "\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n";
+            if (verificarCelular(numero_de_celular, lista_taxistas)) {
+                lista_taxistas->push_back(CTaxista(nombre, apellido, contrasenia, edad, numero_de_celular, CAutomovil(modelo_auto, placa_auto)));
+                printf("Su cuenta nueva ha sido creada!!! Puede ingresar a su cuenta desde el login\n\n");
+            } else
+                printf("\n~~Oh no! Al parecer ya existe una cuenta registrado con el numero de celular que ingreso, por favor registrese de nuevo usando otro numero de celular\n");
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-        } else if(input == 'r' || input == 'R') { // Regresar a pagina anterior
-        } else cout << "\n\n\t~ERROR~\n\n";
+        } else if (input == 'r' || input == 'R') { // Regresar a pagina anterior
+        } else printf("\n\n\t~ERROR~\n\n");
     }
 
-    bool verificarCelular(int celular) {
+    bool verificarCelular(int celular, std::vector<CUsuario>* lista_usuarios) {
         bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
-        CLista<CTaxista> lista_taxistas;
-        CLista<CUsuario> lista_usuarios;
-        leerObjetosGuardados(ARCH_T, &lista_taxistas);
-        lista_taxistas.recorrer_inicio([&celular, &num_cel_disponible](CTaxista o){
-            if(o.get_numero_celular() == celular) num_cel_disponible = false;
-        });
-        leerObjetosGuardados(ARCH_U, &lista_usuarios);
-        lista_usuarios.recorrer_inicio([&celular, &num_cel_disponible](CUsuario o){
-            if(o.get_numero_celular() == celular) num_cel_disponible = false;
-        });
+        for (auto i: *lista_usuarios)
+            if (i.get_num_cel() == celular)
+                num_cel_disponible = false;
+        return num_cel_disponible;
+    }
+    bool verificarCelular(int celular, std::vector<CTaxista>* lista_taxistas) {
+        bool num_cel_disponible = true; // Este bloque revisa si el numero de celular que ingreso el usuario ya esta siendo usada
+        for (auto i: *lista_taxistas)
+            if (i.get_num_cel() == celular)
+                num_cel_disponible = false;
         return num_cel_disponible;
     }
 
     char revisar_input(char in) {
         char ingr = in;
-        if(in != '1' && in != '2' && in != 'r' && in != 'R') {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
-            cin >> ingr;
+        if (in != '1' && in != '2' && in != 'r' && in != 'R') {
+            printf("~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ");
+            std::cin >> ingr;
             return revisar_input(ingr);
         } else return ingr;
     }
+
     char revisar_input1(char in) {
         char ingr = in;
-        if(in != 's' && in != 'S' && in != 'n' && in != 'N') {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
-            cin >> ingr;
+        if (in != 's' && in != 'S' && in != 'n' && in != 'N') {
+            printf("~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ");
+            std::cin >> ingr;
             return revisar_input(ingr);
         } else return ingr;
     }
