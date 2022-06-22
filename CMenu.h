@@ -1,56 +1,53 @@
 #pragma once
+#ifndef UNTITLED10_CMENU_H
+#define UNTITLED10_CMENU_H
+
+#endif //UNTITLED10_CMENU_H
 #include <iostream>
+#include <vector>
 #include "CLogin.h"
 #include "CRegistro.h"
 #include "CAdmin.h"
-
+#include "CUsuario.h"
+#include "CTaxista.h"
 using std::cout;
-using std::cin;
-using std::string;
 
 class CMenu {
-    string in;
-public:
-    CMenu() {
-        cout << "=================== Menu ===================\n\n";
-        cout << "\t[1] Login\n";
-        cout << "\t[2] Registro\n";
-        cout << "\t[S] Salir de la app\n\n";
-        cout << "Por favor elija una opcion: ";
 
-//        string input;
-//        cin >> input;
-//        while(input != "1" && input != "2" && input != "s" && input != "S" && input != "admin") {
-//            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo\n";
-//            cin >> input;
-//        }
+public:
+    CMenu(std::vector<CUsuario>* lista_usuarios, std::vector<CTaxista>* lista_taxistas) {
+        printf("=================== Menu ===================\n\n");
+        printf("\t[1] Login\n");
+        printf("\t[2] Registro\n");
+        printf("\t[S] Salir de la app\n\n");
+        printf("Por favor elija una opcion: ");
 
         char input;
-        cin >> input;
+        scanf(" %c",&input);
         input = revisar_input(input);
 
         if(input == '1') { // Login
-            CLogin();
-            CMenu();
+            CLogin(lista_usuarios, lista_taxistas);
+            CMenu(lista_usuarios, lista_taxistas);
         } else if(input == '2') { // Registro
-            CRegistro();
-            CMenu();
+            CRegistro(lista_usuarios, lista_taxistas);
+            CMenu(lista_usuarios, lista_taxistas);
         } else if(input == 's' || input == 'S') { // Salir de la app (terminar programa)
-            cout << "=============================================\n";
-            cout << "Gracias por usar nuesto app, hasta luego! (^o^)/\n";
-            cout << "=============================================\n";
+            printf("=============================================\n");
+            printf("Gracias por usar nuesto app, hasta luego! (^o^)/\n");
+            printf("=============================================\n");
         } else if(input == 'a' || input == 'A') { // Modo admin fachero facherito
-            cout << "\nBienvenido al modo admin!!!\n";
-            CAdmin();
-            CMenu();
-        } else cout << "\n\n\t~ERROR~\n\n"; // Solo debe correr y hay un error
+            printf("\nBienvenido al modo admin!!!\n");
+            CAdmin(lista_usuarios, lista_taxistas);
+            CMenu(lista_usuarios, lista_taxistas);
+        } else printf("\n\n\t~ERROR~\n\n"); // Solo debe correr y hay un error
     }
 
     char revisar_input(char in) {
         char ingr = in;
         if(in != '1' && in != '2' && in != 's' && in != 'S' && in != 'a' && in != 'A') {
-            cout << "~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ";
-            cin >> ingr;
+            printf("~~Lo sentimos pero no entendemos lo que ha ingresado, por favor elija una opcion de nuevo: ");
+            scanf(" %c", &ingr);
             return revisar_input(ingr);
         } else return ingr;
     }
