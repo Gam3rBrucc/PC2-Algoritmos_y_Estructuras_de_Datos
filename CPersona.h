@@ -1,22 +1,21 @@
 #pragma once
+#ifndef UNTITLED10_CPERSONA_H
+#define UNTITLED10_CPERSONA_H
+
+#endif //UNTITLED10_CPERSONA_H
 #include <iostream>
-
-using std::string;
-using std::cout;
-using std::endl;
-
 class CPersona {
 protected:
-    string nombre, apellido, contrasenia;
+    std::string nombre, apellido, password;
     short edad;
-    int numero_de_celular;
+    int num_cel;
 public:
     CPersona() {}
-    CPersona(string n, string a, short e, int ndc, string c) {
-        nombre = n;
-        apellido = a;
-        edad = e;
-        numero_de_celular = ndc;
-        contrasenia = c;
+    CPersona(std::string n, std::string a, std::string p, short e, int nc) {
+        this->nombre = n;
+        this->apellido = a;
+        this->password = p;
+        this->edad = e;
+        this->num_cel = nc;
     }
 };
