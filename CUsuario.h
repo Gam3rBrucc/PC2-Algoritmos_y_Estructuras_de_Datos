@@ -1,43 +1,47 @@
 #pragma once
+#ifndef UNTITLED10_CUSUARIO_H
+#define UNTITLED10_CUSUARIO_H
+
+#endif //UNTITLED10_CUSUARIO_H
 #include <iostream>
 #include <string>
+#include <functional>
 #include "CPersona.h"
 #include "CViaje.h"
 #include "CPila.h"
-
-using std::string;
-
 class CUsuario : protected CPersona {
-    CPila<CViaje> lista_viajes;
+    CPila<CViaje> viajes;
 public:
-    CUsuario() {}
-    CUsuario(string n, string a, short e, int ndc, string c) : CPersona(n,a,e,ndc,c) {}
-
-    void agregar_viaje(string ubi, string dir, short cal, string cho, string aut) {
-        lista_viajes.push(CViaje(ubi, dir, cal, cho, aut));
+    CUsuario(){}
+    CUsuario(std::string n, std::string a, std::string p, short e, int ndc) : CPersona(n,a,p,e,ndc) {}
+    std::string mostrar_info() {
+        return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(num_cel) + "\nContrasenia: " + password + "\n\n";
+    }
+    void agregar_viaje(std::string ubi, std::string dir, short cal, std::string cho, std::string aut) {
+        viajes.push(CViaje(ubi, dir, cal, cho, aut));
     }
     void recorrer_viajes(std::function<void(CViaje)> r_viaje) {
-        lista_viajes.recorrer_ultimo([&](CViaje o){r_viaje(o);});
+        viajes.recorrer([&](CViaje o){r_viaje(o);});
     }
-    string mostrar_info() {
-        return nombre + " " + apellido + ", " + std::to_string(edad) + "\nNumero de celular: " + std::to_string(numero_de_celular) + "\nContrasenia: " + contrasenia + "\n\n";
+    void set_num_cel(int cel) {
+        num_cel = cel;
     }
-    void set_numero_celular(int cel) {
-        numero_de_celular = cel;
+    int get_num_cel() {
+        return num_cel;
     }
-    int get_numero_celular() {
-        return numero_de_celular;
+    void set_contrasenia(std::string cont) {
+        password = cont;
     }
-    void set_contrasenia(string cont) {
-        contrasenia = cont;
+    std::string get_password() {
+        return password;
     }
-    string get_contrasenia() {
-        return contrasenia;
-    }
-    string get_nombre() {
+    std::string get_nombre() {
         return nombre;
     }
-    string get_apellido() {
+    std::string get_apellido() {
         return apellido;
+    }
+    short get_edad() {
+        return edad;
     }
 };
