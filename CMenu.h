@@ -10,7 +10,6 @@
 #include "CAdmin.h"
 #include "CUsuario.h"
 #include "CTaxista.h"
-using std::cout;
 
 class CMenu {
 
